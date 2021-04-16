@@ -27,7 +27,7 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      required: true,
+      required: [true, "Email is Required"],
       trim: true,
       unique: true,
       lowercase: true,
@@ -38,7 +38,7 @@ const userSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['user,"admin'],
+      enum: ["user", "admin"],
       default: "admin",
     },
     contactNo: { type: String },
