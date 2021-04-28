@@ -48,10 +48,16 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.virtual("password").set(function (password) {
+  // used to perform a operation on instance of user
   this.hashedPass = bcrypt.hashSync(password, 10);
 });
 
-userSchema.method = {
+userSchema.virtual("fullName").get(function () {
+  // used To perform Operation in current instance of the data
+  return `${this.firstName} ${this.lastName}`;
+});
+
+userSchema.methods = {
   authenticate: function (password) {
     return bcrypt.compareSync(password, this.hashedPass);
     // Returns True or false

@@ -4,7 +4,8 @@ import bodyParser from "body-parser";
 import mongoose from "mongoose";
 
 // Routes Imports
-import userRoute from "./routes/user.mjs";
+import userRoute from "./routes/auth.mjs";
+import adminRoutes from "./routes/admin/auth.mjs";
 
 // Db connection
 mongoose
@@ -23,6 +24,7 @@ const app = express();
 dotenv.config();
 app.use(bodyParser.json());
 app.use("/api", userRoute);
+app.use("/api", adminRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("Server is running");
