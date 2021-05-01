@@ -1,9 +1,15 @@
 import React from "react";
+import { Jumbotron } from "react-bootstrap";
 
 function Home() {
   return (
-    <div>
-      <h1>Hoome</h1>
+    <div className="home">
+      <Jumbotron>
+        <h1>Welcome to Dashboard</h1>
+      </Jumbotron>
+      <p>
+        Hey this is my MERN projects Admin Dashboard made with react-bootstrap !
+      </p>
     </div>
   );
 }

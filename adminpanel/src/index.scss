@@ -7,6 +7,32 @@
   font-family: "Poppins", sans-serif;
 }
 
+a:hover {
+  text-decoration: none !important;
+}
+
 main {
+  height: 100%;
   min-height: calc(100vh - 90px);
+}
+
+.Links a {
+  padding: 0 10px;
+}
+
+// Home Page
+
+.home {
+  h1 {
+    text-align: center;
+  }
+  p {
+    text-align: center;
+  }
+}
+
+// SignIn
+
+.SignIn {
+  margin-top: 50px;
 }

@@ -56,7 +56,7 @@ const signIn = (req, res) => {
         });
       }
     } else {
-      return res.status(409).json({ message: "Something Went WRONG !" });
+      return res.status(409).json({ message: "User Not FOund" });
     }
   });
 };
