@@ -63,12 +63,4 @@ const signIn = (req, res) => {
   });
 };
 
-const isSignedIn = (req, res, next) => {
-  const token = req.headers.authorization.split(" ")[1];
-  console.log(process.env.JWT_SECRET);
-  const userId = jwt.verify(token, process.env.JWT_SECRET);
-  req.user = userId;
-  next();
-};
-
-export { signUp, signIn, isSignedIn };
+export { signUp, signIn };
