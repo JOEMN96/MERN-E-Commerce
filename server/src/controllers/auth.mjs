@@ -40,8 +40,6 @@ const signIn = (req, res) => {
     if (err) res.status(401).json({ err });
 
     if (user) {
-      // console.log(user);
-
       if (user.authenticate(req.body.password)) {
         const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
           expiresIn: "2h",

@@ -41,9 +41,13 @@ const signIn = (req, res) => {
 
     if (user) {
       if (user.authenticate(req.body.password) && user.role === "admin") {
-        const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, {
-          expiresIn: "2h",
-        });
+        const token = jwt.sign(
+          { _id: user._id, role: user.role },
+          process.env.JWT_SECRET,
+          {
+            expiresIn: "7day",
+          }
+        );
         const { firstName, lastName, role, email, fullName, _id } = user;
         res.status(200).json({
           firstName,

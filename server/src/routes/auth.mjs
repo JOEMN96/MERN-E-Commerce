@@ -1,6 +1,6 @@
 import express from "express";
 import { validateSignUp, isValid, validateSignIn } from "../validators/auth";
-import { isSignedIn } from "../middlewares/auth";
+import { isSignedIn } from "../middlewares/userRelated";
 //  Controllers
 import { signUp, signIn } from "../controllers/auth.mjs";
 

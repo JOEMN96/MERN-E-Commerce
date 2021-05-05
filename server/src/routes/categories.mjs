@@ -1,8 +1,14 @@
 import express from "express";
-import { create } from "../controllers/categories";
+import { create, getCategory } from "../controllers/categories";
+import {
+  isSignedIn,
+  verifyAdmin,
+  verifyUser,
+} from "../middlewares/userRelated";
 
 const router = express.Router();
 
-router.post("/categories/create", create);
+router.post("/categories/create", isSignedIn, verifyAdmin, create);
+router.post("/categories/getCategories", isSignedIn, verifyUser, getCategory);
 
 export default router;
