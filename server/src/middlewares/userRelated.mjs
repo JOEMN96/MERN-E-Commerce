@@ -20,6 +20,9 @@ const verifyAdmin = (req, res, next) => {
   next();
 };
 const verifyUser = (req, res, next) => {
+  if (req.user.role !== "user") {
+    return res.status(406).send({ error: "You are Not an User" });
+  }
   next();
 };
 

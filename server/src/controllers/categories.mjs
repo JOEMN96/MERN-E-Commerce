@@ -1,6 +1,27 @@
 import CategoryModel from "../models/categories";
 import slugify from "slugify";
 
+function formatCategories(categories, parentId = null) {
+  let categoryList = [];
+  let _categories;
+  if (parentId == null) {
+    _categories = categories.filter((item) => item.parentId == undefined);
+  } else {
+    _categories = categories.filter((item) => item.parentId == parentId);
+  }
+
+  for (let fields of _categories) {
+    categoryList.push({
+      _id: fields._id,
+      name: fields.name,
+      slug: fields.slug,
+      children: formatCategories(categories, fields._id),
+    });
+  }
+
+  return categoryList;
+}
+
 const create = (req, res) => {
   if (!req.body.name) {
     return res.status(412).send({
@@ -30,7 +51,9 @@ const create = (req, res) => {
 const getCategory = (req, res) => {
   CategoryModel.find({}).exec((error, categories) => {
     if (error) return res.status(404).send({ error });
-    res.status(200).send({ categories });
+    const formatedCategories = formatCategories(categories);
+
+    res.status(200).send({ categories: formatedCategories });
   });
 };
 
