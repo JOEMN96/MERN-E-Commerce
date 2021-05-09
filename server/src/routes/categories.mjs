@@ -9,6 +9,6 @@ import {
 const router = express.Router();
 
 router.post("/categories/create", isSignedIn, verifyAdmin, create);
-router.post("/categories/getCategories", isSignedIn, getCategory);
+router.get("/categories/getCategories", isSignedIn, getCategory);
 
 export default router;

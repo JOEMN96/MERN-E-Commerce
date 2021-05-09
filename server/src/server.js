@@ -7,6 +7,8 @@ import mongoose from "mongoose";
 import userRoute from "./routes/auth.mjs";
 import adminRoutes from "./routes/admin/auth.mjs";
 import categoriesRoutes from "./routes/categories.mjs";
+import ProductsRoutes from "./routes/products.mjs";
+import cartRoutes from "./routes/cart.mjs";
 
 // Db connection
 mongoose
@@ -27,6 +29,8 @@ app.use(bodyParser.json());
 app.use("/api", userRoute);
 app.use("/api", adminRoutes);
 app.use("/api", categoriesRoutes);
+app.use("/api", ProductsRoutes);
+app.use("/api", cartRoutes);
 
 app.listen(process.env.PORT, () => {
   console.log("Server is running");
