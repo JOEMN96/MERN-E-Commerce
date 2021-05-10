@@ -4,18 +4,49 @@ const addToCart = async (req, res) => {
   const { cartItems } = req.body;
   const { _id } = req.user;
 
-  const isCartAvailable = await Cart.findOne({ userId: _id }).exec();
+  const _cart = await Cart.findOne({ userId: _id });
 
-  if (isCartAvailable) {
-    const updated = await Cart.findOneAndUpdate(
-      { userId: _id },
-      { cartItems: { cartItems } }
+  if (_cart) {
+    const itemAlreadyAdded = _cart.cartItems.find(
+      (c) => c.product == cartItems.product
     );
-    return res.status(200).send({ updated });
+
+    if (itemAlreadyAdded) {
+      Cart.findOneAndUpdate(
+        { userId: _id, "cartItems.product": cartItems.product },
+        {
+          $set: {
+            cartItems: {
+              ...cartItems,
+              quantity: itemAlreadyAdded.quantity + 1,
+            },
+          },
+        }
+      ).exec((error, data) => {
+        if (error) {
+          return res.status(400).send({ error });
+        }
+        res.status(200).send({ cart: data });
+      });
+    } else {
+      Cart.findOneAndUpdate(
+        { userId: _id },
+        {
+          $push: {
+            cartItems: req.body.cartItems,
+          },
+        }
+      ).exec((error, data) => {
+        if (error) {
+          return res.status(400).send({ error });
+        }
+        res.status(200).send({ cart: data });
+      });
+    }
   } else {
     const _cart = new Cart({
       userId: _id,
-      cartItems,
+      cartItems: [cartItems],
     });
 
     try {

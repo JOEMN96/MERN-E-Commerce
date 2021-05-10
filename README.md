@@ -1,7 +1,8 @@
 # MERN-E-Commerce
-This is a MERN stack project 
 
-# Notes For Myself
+This is a MERN stack project
 
-* Change JWT expiry time
-* Change the JWT secret KEy
+## Notes For Myself
+
+- Change JWT expiry time
+- Change the JWT secret KEy
