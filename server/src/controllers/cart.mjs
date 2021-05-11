@@ -12,31 +12,28 @@ const addToCart = async (req, res) => {
     );
 
     if (itemAlreadyAdded) {
-      Cart.findOneAndUpdate(
-        { userId: _id, "cartItems.product": cartItems.product },
-        {
-          $set: {
-            cartItems: {
-              ...cartItems,
-              quantity: itemAlreadyAdded.quantity + 1,
-            },
+      let condition = { userId: _id, "cartItems.product": cartItems.product };
+      let action = {
+        $set: {
+          "cartItems.$": {
+            ...cartItems,
+            quantity: itemAlreadyAdded.quantity + 1,
           },
-        }
-      ).exec((error, data) => {
+        },
+      };
+      Cart.findOneAndUpdate(condition, action).exec((error, data) => {
         if (error) {
           return res.status(400).send({ error });
         }
         res.status(200).send({ cart: data });
       });
     } else {
-      Cart.findOneAndUpdate(
-        { userId: _id },
-        {
-          $push: {
-            cartItems: req.body.cartItems,
-          },
-        }
-      ).exec((error, data) => {
+      let action = {
+        $push: {
+          cartItems: req.body.cartItems,
+        },
+      };
+      Cart.findOneAndUpdate({ userId: _id }, action).exec((error, data) => {
         if (error) {
           return res.status(400).send({ error });
         }

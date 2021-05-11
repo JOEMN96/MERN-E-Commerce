@@ -34,6 +34,10 @@ const create = (req, res) => {
     slug: slugify(req.body.name),
   };
 
+  if (req.file) {
+    category.image = process.env.DOMAIN + "public/" + req.file.filename;
+  }
+
   if (req.body.parentId) {
     category.parentId = req.body.parentId;
   }

@@ -2,6 +2,9 @@ import express from "express";
 import dotenv from "dotenv";
 import bodyParser from "body-parser";
 import mongoose from "mongoose";
+import path from "path";
+import { dirname } from "path";
+import { fileURLToPath } from "url";
 
 // Routes Imports
 import userRoute from "./routes/auth.mjs";
@@ -23,11 +26,16 @@ mongoose
     console.log("DB Connected");
   });
 
+// For Path native library use
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+
 // Express Configs / Middleswares
 
 const app = express();
 dotenv.config();
-app.use(bodyParser.json());
+app.use("/public", express.static(path.join(__dirname, "uploads")));
+app.use(express.json());
 app.use("/api", userRoute);
 app.use("/api", adminRoutes);
 app.use("/api", categoriesRoutes);
