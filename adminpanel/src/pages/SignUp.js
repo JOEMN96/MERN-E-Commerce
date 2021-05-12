@@ -1,13 +1,22 @@
 import React from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useDispatch } from "react-redux";
+import { signUp } from "../actions/auth.actions";
 import InputField from "../components/InputField";
 
 function SignUp() {
+  const dispatch = useDispatch();
+
+  const SignUp = (e) => {
+    e.preventDefault();
+    dispatch(signUp({ name: "Joe" }));
+  };
+
   return (
     <Container>
       <Row className="SignIn">
         <Col md={{ span: 5, offset: 4 }}>
-          <Form>
+          <Form onSubmit={SignUp}>
             <Row>
               <Col>
                 <InputField
@@ -20,9 +29,9 @@ function SignUp() {
               <Col>
                 <InputField
                   label="Last Name"
-                  type="text"
                   Onchange={() => {}}
                   errorMessage=""
+                  id="tes"
                 />
               </Col>
             </Row>

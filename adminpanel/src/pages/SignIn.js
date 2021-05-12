@@ -1,13 +1,24 @@
 import React from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import InputField from "../components/InputField";
+import { login } from "../actions/auth.actions";
+import { useDispatch, useSelector } from "react-redux";
 
 function SignIn() {
+  const dispatch = useDispatch();
+  const userLogin = (e) => {
+    e.preventDefault();
+    const user = { name: "joe" };
+    dispatch(login(user));
+  };
+
+  // const selector = useSelector((state) => state);
+
   return (
     <Container>
       <Row className="SignIn">
         <Col md={{ span: 5, offset: 4 }}>
-          <Form>
+          <Form onSubmit={userLogin}>
             <InputField
               label="Email"
               type="email"
