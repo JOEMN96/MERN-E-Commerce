@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import InputField from "../components/InputField";
-import { login } from "../actions/auth.actions";
+import { login, isUserLoggedIn } from "../actions/auth.actions";
 import { useDispatch, useSelector } from "react-redux";
+import { Redirect } from "react-router";
 
 function SignIn() {
+  const [email, setemail] = useState("");
+  const [password, setpassword] = useState("");
+  const [errors, seterrors] = useState("");
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.authenticated);
+
+  useEffect(() => {
+    if (!isAuthenticated) {
+      dispatch(isUserLoggedIn());
+    }
+  });
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
+
   const userLogin = (e) => {
     e.preventDefault();
-    const user = { name: "joe" };
-    dispatch(login(user));
+    dispatch(login({ email, password }));
   };
-
-  // const selector = useSelector((state) => state);
 
   return (
     <Container>
@@ -22,14 +35,17 @@ function SignIn() {
             <InputField
               label="Email"
               type="email"
-              Onchange={() => {}}
+              Onchange={(e) => {
+                setemail(e.target.value.trim());
+              }}
               errorMessage=""
             />
-
             <InputField
               label="Password"
               type="password"
-              Onchange={() => {}}
+              Onchange={(e) => {
+                setpassword(e.target.value.trim());
+              }}
               errorMessage=""
             />
             <Form.Group controlId="formBasicCheckbox">

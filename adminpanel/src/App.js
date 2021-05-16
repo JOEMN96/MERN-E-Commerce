@@ -4,6 +4,7 @@ import Home from "./pages/Home";
 import SignUp from "./pages/SignUp";
 import SignIn from "./pages/SignIn";
 import ErrorPage from "./pages/NotFound";
+import PrivateRoutes from "./components/HOC/PrivateRoutes";
 
 function App() {
   return (
@@ -11,7 +12,7 @@ function App() {
       <Router>
         <Layout>
           <Switch>
-            <Route exact path="/" component={Home} />
+            <PrivateRoutes exact path="/" component={Home} />
             <Route exact path="/signIn" component={SignIn} />
             <Route exact path="/signUp" component={SignUp} />
             <Route path="*" component={ErrorPage} />

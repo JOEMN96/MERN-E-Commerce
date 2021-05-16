@@ -5,6 +5,7 @@ import mongoose from "mongoose";
 import path from "path";
 import { dirname } from "path";
 import { fileURLToPath } from "url";
+import cors from "cors";
 
 // Routes Imports
 import userRoute from "./routes/auth.mjs";
@@ -33,6 +34,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 // Express Configs / Middleswares
 
 const app = express();
+app.use(cors());
 dotenv.config();
 app.use("/public", express.static(path.join(__dirname, "uploads")));
 app.use(express.json());
