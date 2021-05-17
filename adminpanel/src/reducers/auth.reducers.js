@@ -9,6 +9,7 @@ const initialState = {
 };
 
 export default function auth(state = initialState, action) {
+  console.log(action);
   switch (action.type) {
     case "LOGIN_REQUESTED":
       state = {
@@ -29,6 +30,9 @@ export default function auth(state = initialState, action) {
         ...state,
         errors: action.payload.error,
       };
+      break;
+    case "LOGOUT":
+      state = { ...initialState };
       break;
     default:
       return state;

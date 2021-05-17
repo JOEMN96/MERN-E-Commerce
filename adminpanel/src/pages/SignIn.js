@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import InputField from "../components/InputField";
-import { login, isUserLoggedIn } from "../actions/auth.actions";
+import { login } from "../actions/auth.actions";
 import { useDispatch, useSelector } from "react-redux";
 import { Redirect } from "react-router";
 
@@ -11,12 +11,6 @@ function SignIn() {
   const [errors, seterrors] = useState("");
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.authenticated);
-
-  useEffect(() => {
-    if (!isAuthenticated) {
-      dispatch(isUserLoggedIn());
-    }
-  });
 
   if (isAuthenticated) {
     return <Redirect to="/" />;

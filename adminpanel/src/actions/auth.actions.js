@@ -63,4 +63,13 @@ const isUserLoggedIn = () => {
   };
 };
 
-export { login, signUp, isUserLoggedIn };
+const signOut = () => {
+  return async (dispatch) => {
+    localStorage.clear();
+    dispatch({
+      type: "LOGOUT",
+    });
+  };
+};
+
+export { login, signUp, isUserLoggedIn, signOut };

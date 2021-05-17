@@ -10,6 +10,9 @@
 a:hover {
   text-decoration: none !important;
 }
+nav {
+  z-index: 1;
+}
 
 main {
   height: 100%;
@@ -35,4 +38,16 @@ main {
 
 .SignIn {
   margin-top: 50px;
+}
+
+// Dashboard
+
+.sidebar {
+  position: fixed !important;
+  background: #eeee;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  padding-top: 58px;
+  box-shadow: inset 0 0 2px grey;
 }

@@ -1,16 +1,23 @@
 import React from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { useDispatch } from "react-redux";
+import { Redirect } from "react-router";
+import { useDispatch, useSelector } from "react-redux";
 import { signUp } from "../actions/auth.actions";
 import InputField from "../components/InputField";
 
 function SignUp() {
   const dispatch = useDispatch();
 
+  const isAuthenticated = useSelector((state) => state.auth.authenticated);
+
   const SignUp = (e) => {
     e.preventDefault();
     dispatch(signUp({ name: "Joe" }));
   };
+
+  if (isAuthenticated) {
+    return <Redirect to="/" />;
+  }
 
   return (
     <Container>
